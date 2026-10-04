@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudarshan Tripathi - Digital Business Card</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Outfit', sans-serif;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        /* Main Card Container */
+        .card-container {
+            width: 100%;
+            max-width: 380px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-container:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Top Accent Glow Border */
+        .card-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b, #ffb703);
+        }
+
+        /* Profile Info Section */
+        .profile-section {
+            margin-bottom: 20px;
+        }
+
+        .profile-img-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ffb703;
+            box-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
+            margin-bottom: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-img-wrapper:hover .profile-img {
+            transform: scale(1.05);
+            box-shadow: 0 0 22px rgba(255, 183, 3, 0.5);
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .designation {
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Golden Gradient Divider Line */
+        .gold-bar {
+            height: 2px;
+            width: 80%;
+            margin: 20px auto;
+            background: linear-gradient(90deg, transparent, #ffb703, transparent);
+        }
+
+        /* Logo & Company Section */
+        .logo-section {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 20px 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .logo-section:hover {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .logo-img-container {
+            margin-bottom: 12px;
+        }
+
+        .Company-Logo {
+            max-width: 160px;
+            height: auto;
+            filter: drop-shadow(0px 4px 10px #0000004d);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-section:hover .Company-Logo {
+            transform: scale(1.03);
+        }
+
+        .company-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: #f1f5f9;
+            opacity: 0.9;
+        }
+
+        /* Primary Action: Save Contact Button */
+        .save-contact-wrapper {
+            margin-top: 20px;
+        }
+
+        .btn-save-contact {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #ffb703 0%, #ff8800 100%);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(255, 183, 3, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-save-contact svg {
+            width: 20px;
+            height: 20px;
+            fill: #0f172a;
+        }
+
+        .btn-save-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 183, 3, 0.5);
+            background: linear-gradient(135deg, #ffc425 0%, #ffa11a 100%);
+        }
+
+        /* Contact & Social Action Grid */
+        .contact-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+            justify-items: center;
+        }
+
+        .btn-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-icon:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* Brand Color Schemes on Hover */
+        .btn-call:hover { background: #22c55e; border-color: #22c55e; }
+        .btn-whatsapp:hover { background: #25d366; border-color: #25d366; }
+        .btn-instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: #dc2743; }
+        .btn-email:hover { background: #ea4335; border-color: #ea4335; }
+        .btn-website:hover { background: #3b82f6; border-color: #3b82f6; }
+        .btn-linkedin:hover { background: #0a66c2; border-color: #0a66c2; }
+        .btn-location:hover { background: #ef4444; border-color: #ef4444; }
+
+        /* Bottom Accent Border */
+        .yellow-border-top {
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4, #10b981);
+            margin-top: 25px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        
+        <!-- Profile / Name Section -->
+        <div class="profile-section">
+            <div class="profile-img-wrapper">
+                <img src="my-photo.png.png" alt="Sudarshan Tripathi" class="profile-img">
+            </div>
+            <h1 class="name">Sudarshan Tripathi</h1>
+            <div class="designation">Marketing Executive</div>
+        </div>
+
+        <!-- Golden Gradient Bar -->
+        <div class="gold-bar"></div>
+
+        <!-- Logo & Company Section -->
+        <div class="logo-section">
+            <div class="logo-img-container">
+                <img src="logo1.png.png" alt="JEWELLERY DARPAN Logo" class="Company-Logo">
+            </div>
+            <h2 class="company-name">JEWELLERY DARPAN</h2>
+            <p class="tagline">Apna Business Banaye Smart Or Professional</p>
+        </div>
+
+        <!-- Save Contact Button (.vcf) -->
+        <div class="save-contact-wrapper">
+            <a href="#" id="saveContactBtn" class="btn-save-contact">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Save Contact
+            </a>
+        </div>
+
+        <!-- Contact & Social Action Grid -->
+        <div class="contact-buttons">
+            <!-- Call Button -->
+            <a href="tel:+918273755111" class="btn-icon btn-call" title="Call Now">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </a>
+
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/919376070170" target="_blank" class="btn-icon btn-whatsapp" title="WhatsApp">
+                <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 16.67c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.32a8.198 8.198 0 01-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 012.41 5.83c0 4.54-3.7 8.23-8.22 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.08-.39-.12-.56.12-.17.25-.64.8-.79.96-.15.17-.3.19-.55.07-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.15-.25-.02-.38.1-.5.11-.11.25-.29.37-.44.12-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.77 2.7 4.28 3.79.6.26 1.06.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.18-.48-.3z"/></svg>
+            </a>
+
+            <!-- Email Button -->
+            <a href="mailto:jdnewsinfo@gmail.com" class="btn-icon btn-email" title="Send Email">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </a>
+
+            <!-- Location / Address Button -->
+            <a href="https://maps.google.com" target="_blank" class="btn-icon btn-location" title="Location">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </a>
+        </div>
+
+        <!-- Bottom Accent Border -->
+        <div class="yellow-border-top"></div>
+
+    </div>
+
+    <!-- Script to Generate & Download .vcf file -->
+    <script>
+        document.getElementById('saveContactBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const vcardData = 
+`BEGIN:VCARD
+VERSION:3.0
+FN:Sudarshan Tripathi
+ORG:JEWELLERY DARPAN
+TITLE:Marketing Executive
+TEL;TYPE=CELL:+918273755111
+TEL;TYPE=WHATSAPP:+919376070170
+EMAIL:jdnewsinfo@gmail.com
+END:VCARD`;
+
+            const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Sudarshan_Tripathi.vcf');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
